@@ -7,6 +7,13 @@ const singleCommentReducer = (comment = [], action) => {
         user: action.payload.author,
         text: action.payload.comment
       }];
+
+    case REMOVE_COMMENT:
+      return [
+        ...comment.slice(0, action.payload.i),
+        ...comment.slice(action.payload.i + 1)
+      ];
+
     default:
       return comment;
   }

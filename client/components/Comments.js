@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 
 class Comment extends Component {
   renderComment(comment, i) {
+    const { postId } = this.props.params;
     return (
       <div className="comment" key={i}>
         <p>
           <strong>{comment.user}</strong>
           {comment.text}
-          <button className="remove-comment">&times;</button>
+          <button className="remove-comment" onClick={() => this.props.removeComment(postId, i)}>
+            &times;
+          </button>
         </p>
       </div>
     );
@@ -25,7 +28,7 @@ class Comment extends Component {
   render() {
     return (
       <div className="comments">
-        {this.props.postComments.map(this.renderComment)}
+        {this.props.postComments.map(this.renderComment.bind(this))}
         <form ref="commentForm" className="comment-form" onSubmit={this.handleSubmit.bind(this)}>
           <input type="text" ref="author" placeholder="author" />
           <input type="text" ref="comment" placeholder="comment" />
